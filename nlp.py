@@ -8,8 +8,8 @@ from pptx.util import Pt
 
 # LOCAL UTILS
 from utils.input_text import input_text, split_text
-from utils.process_text import generate_summary, freq, bigrams, title, word_cloud
-from utils.presentation import get_binary_file_downloader_html
+from utils.process_text import generate_summary, freq, bigrams, generate_title, word_cloud
+from utils.presentation import get_binary_file_downloader_html, make_presentation
 
 # a little title
 st.write("""
@@ -26,7 +26,7 @@ if len(text)>400:
     # split the text with custom function
     text_split = split_text(text)
     st.subheader('DEMO NLP APPLICATIONS:')
-    possible_title,bi=title(text)
+    possible_title,bi = generate_title(text)
     st.subheader('Title:')
     title=possible_title[0]+ ' ' +possible_title[1]
     st.write(title.upper())
@@ -61,8 +61,20 @@ if len(text)>400:
     plt.axis("off")
     st.pyplot(fig)
 
+    # Create titles and summaries to slides
+    title_split = []
+    summary_split = []
+    for element in text_split:
+        pt,auxiliar = generate_title(element) # [('The','title')],bigrams = genera...
+        s = generate_summary(element,1)
+        title_split.append(pt[0]+' '+pt[1])
+        summary_split.append(s)
+    
+    # Create presentation
+    make_presentation(title_split,summary_split)
+
     # Download presentation
-    st.markdown(get_binary_file_downloader_html('requirements.txt', 'Presentation'), unsafe_allow_html=True)
+    st.markdown(get_binary_file_downloader_html('Output.pptx', 'Presentation'), unsafe_allow_html=True)
 
 else:
     # warning message

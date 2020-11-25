@@ -24,8 +24,8 @@ def make_presentation(titles,sumaries):
     """
     for i in range(L):
         slide = root.slides.add_slide(first_slide_layout) 
-        slide.shapes.title.text = text[i]
-        slide.placeholders[1].text = summary[i]
+        slide.shapes.title.text = titles[i]
+        slide.placeholders[1].text = sumaries[i]
     # Saving file 
     root.save("Output.pptx") 
 

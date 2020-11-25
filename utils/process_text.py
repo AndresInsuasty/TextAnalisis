@@ -147,7 +147,7 @@ def bigrams(text,n):
         value.append(element[1])
     return label, value
 
-def title(text):
+def generate_title(text):
     pattern = r'''(?x)                 # set flag to allow verbose regexps
               (?:[A-Z]\.)+         # abbreviations, e.g. U.S.A.
               | \w+(?:-\w+)*       # words with optional internal hyphens
